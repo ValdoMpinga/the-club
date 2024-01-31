@@ -23,7 +23,7 @@ server.listen(3000, () =>
     // Initialize Socket.IO server after the HTTP server starts listening for connections
     io = socketIo(server);
 
-    let state = {}; // This will hold the state of the scene
+    let state = []; // This will hold the state of the scene
 
     io.on('connection', (socket) =>
     {
@@ -32,10 +32,10 @@ server.listen(3000, () =>
         // Send the current state to the newly connected client
         socket.emit('state', state);
 
-        // Listen for 'update' events from the client and update the state
-        socket.on('update', (newState) =>
+        // Listen for 'addEntity' events from the client and add the entity to the state
+        socket.on('addEntity', (entity) =>
         {
-            state = newState;
+            state.push(entity);
             // Broadcast the updated state to all other clients
             socket.broadcast.emit('state', state);
         });
