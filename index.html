@@ -2,14 +2,19 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-    <script src="./components/testComponent.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"
+      integrity="sha512-tE1z+95+lMCGwy+9PnKgUSIeHhvioC9lMlI7rLWU0Ps3XTdjRygLcy4mLuL0JAoK4TLdQEyP0yOl/9dMOqpH/Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
 
   <body>
     <a-scene>
       <a-sky src="./assets/images/club.jpg"></a-sky>
-
       <a-box test-component></a-box>
+      <a-box id="box" material="color: red"></a-box>
 
       <a-entity
         camera
@@ -21,10 +26,8 @@
           <a-cursor></a-cursor>
         </a-camera>
       </a-entity>
-
       <a-sphere position="0 4 -4"></a-sphere>
       <a-plane
-        src="./assets/images/floor.jpg"
         width="100"
         height="100"
         color="#888888"
@@ -32,4 +35,7 @@
       ></a-plane>
     </a-scene>
   </body>
+<script>
+ const socket = io('http://localhost:3000');
+</script>
 </html>
