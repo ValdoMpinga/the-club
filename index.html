@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-sky src="./assets/images/club.jpg"></a-sky>
+
+      <a-entity
+        camera
+        look-controls
+        wasd-controls="acceleration: 600"
+        position="0 3 5"
+      ></a-entity>
+
+      <!-- DJ Desk -->
+      <a-entity
+        id="dj-desk"
+        geometry="primitive: box; height: 0.5; width: 1; depth: 0.5;"
+        material="color: #888888;"
+        position="0 2w -2"
+      >
+        <!-- Volume Knob -->
+        <a-entity
+          id="volume-knob"
+          geometry="primitive: cylinder; radius: 0.1; height: 0.2;"
+          material="color: #FFFFFF;"
+          position="-0.4 0.1 -0.4"
+        ></a-entity>
+        <!-- Play Button -->
+        <a-entity
+          id="play-button"
+          geometry="primitive: box; height: 0.1; width: 0.2; depth: 0.05;"
+          material="color: #00FF00;"
+          position="0.4 0.1 -0.4"
+        ></a-entity>
+        <!-- Pause Button -->
+        <a-entity
+          id="pause-button"
+          geometry="primitive: box; height: 0.1; width: 0.2; depth: 0.05;"
+          material="color: #FF0000;"
+          position="0.4 0.1 -0.6"
+        ></a-entity>
+      </a-entity>
+
+      <a-entity component1="prop1:value" component1="prop2:value"></a-entity>
+      <a-plane
+        src="./assets/images/floor.jpg"
+        width="100"
+        height="100"
+        color="#888888"
+        rotation="-90 0 0"
+      ></a-plane>
+    </a-scene>
+  </body>
+  <script>
+    // Volume Knob
+    var volumeKnob = document.querySelector("#volume-knob");
+    volumeKnob.addEventListener("click", function () {
+      this.setAttribute(
+        "rotation",
+        "y: " + ((this.getAttribute("rotation").y + 90) % 360)
+      );
+    });
+
+    // Play Button
+    var playButton = document.querySelector("#play-button");
+    playButton.addEventListener("click", function () {
+      this.setAttribute("material", "color", "#0000FF");
+    });
+
+    // Pause Button
+    var pauseButton = document.querySelector("#pause-button");
+    pauseButton.addEventListener("click", function () {
+      this.setAttribute("material", "color", "#FFFF00");
+    });
+  </script>
+</html>
