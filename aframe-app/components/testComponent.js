@@ -1,6 +1,8 @@
 AFRAME.registerComponent('test-component', {
     init: function ()
     {
+        console.log('testComponent initialized'); // Add this line
+
         var el = this.el; // Reference to the entity to which this component is attached
 
         // Change color on click
