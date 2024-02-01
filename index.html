@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+ <head>
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"
@@ -8,9 +8,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-  </head>
+ </head>
 
-  <body>
+ <body>
     <a-scene>
       <a-sky src="./assets/images/club.jpg"></a-sky>
       <a-box test-component></a-box>
@@ -34,8 +34,25 @@
         rotation="-90 0 0"
       ></a-plane>
     </a-scene>
-  </body>
+ </body>
 <script>
  const socket = io('http://localhost:3000');
+
+ // Listen for 'newUser' event from the server
+ socket.on('newUser', () => {
+    // Generate a random x-coordinate between -10 and 10
+    const x = Math.random() * 20 - 10;
+
+    // Create a new sphere
+    const sphere = document.createElement('a-sphere');
+    sphere.setAttribute('position', `${x} 4 -4`);
+    document.querySelector('a-scene').appendChild(sphere);
+
+    // Emit an 'addEntity' event to the server
+    socket.emit('addEntity', {
+       id: 'generatedSphere',
+       position: `${x} 4 -4`
+    });
+ });
 </script>
 </html>

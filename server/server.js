@@ -25,12 +25,32 @@ server.listen(3000, () =>
 
     let state = []; // This will hold the state of the scene
 
+    // Inside the 'connection' event listener
+    // Inside the 'connection' event listener
     io.on('connection', (socket) =>
     {
         console.log('New client connected');
 
         // Send the current state to the newly connected client
         socket.emit('state', state);
+
+        socket.emit('newUser');
+
+
+        // Generate random coordinates for the new sphere
+        const randomX = Math.random() * 10 - 5; // Range: -5 to 5
+
+        // Create a new sphere entity object
+        const newSphere = {
+            type: 'sphere',
+            position: { x: randomX}
+        };
+
+        // Add the new sphere to the state
+        state.push(newSphere);
+
+        // Broadcast the updated state to all clients
+        io.emit('state', state);
 
         // Listen for 'addEntity' events from the client and add the entity to the state
         socket.on('addEntity', (entity) =>
@@ -40,4 +60,6 @@ server.listen(3000, () =>
             socket.broadcast.emit('state', state);
         });
     });
+
+
 });
