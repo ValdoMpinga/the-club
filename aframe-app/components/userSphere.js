@@ -25,6 +25,7 @@ AFRAME.registerComponent('user-sphere', {
         textEl.setAttribute('color', data.textColor); // Set the text color
         textEl.setAttribute('align', 'center'); // Center align the text
         textEl.setAttribute('anchor', 'center'); // Anchor the text to the center
+        textEl.setAttribute('look-at', '[camera]'); // Make the text always face the camera
         el.appendChild(textEl);
     }
 });
