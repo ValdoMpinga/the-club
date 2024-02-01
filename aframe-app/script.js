@@ -35,6 +35,14 @@ socket.on('state', (spheres) =>
     });
 });
 
+function getRandomLetter()
+{
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    const index = Math.floor(Math.random() * alphabet.length);
+    return alphabet[index];
+}
+
+
 // Example code for generating and adding a new userSphere
 // You can call this whenever you want to add a new userSphere
 function generateAndAddUserSphere()
@@ -43,10 +51,15 @@ function generateAndAddUserSphere()
     const y = Math.random() * 20 - 10;
     const z = Math.random() * 20 - 10;
 
+    // Generate two random letters for the name
+    const namePart1 = getRandomLetter().toUpperCase();
+    const namePart2 = getRandomLetter().toUpperCase();
+    const name = namePart1 + namePart2;
+
     const userSphereData = {
         position: { x, y, z },
-        name: 'Generated User',
-        color: '#FF0000', // Red color for generated users
+        name: name,
+        color: 'yellow', // Red color for generated users
         textColor: 'purple',
         fontSize: 8
     };
