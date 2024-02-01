@@ -23,27 +23,39 @@ server.listen(3000, () =>
 });
 
 // Inside the 'connection' event listener
+// ... (other parts of the server code remain unchanged)
+
+// ... (other parts of the server code remain unchanged)
+
 io.on('connection', (socket) =>
 {
     console.log('New client connected');
 
-    // Send the current state (spheres array) to the newly connected client
+    // Send the current state to the newly connected client
     socket.emit('state', spheres);
 
-    // Emit event to all clients when a new user joins
-    io.emit('newUser');
+    // Handle the 'addEntity' event
+    socket.on('addEntity', (userSphereData) =>
+    {
+        // Associate the generated name with the client
+        userSphereData.clientId = socket.id;
+        spheres.push(userSphereData);
 
-    // Listen for disconnection events
+        // Broadcast the new sphere to all clients
+        io.emit('addEntity', userSphereData);
+    });
+
+    // Handle the disconnect event
     socket.on('disconnect', () =>
     {
         console.log('Client disconnected');
-    });
-
-    // Listen for 'addEntity' events from the client and add the entity to the spheres array
-    socket.on('addEntity', (entity) =>
-    {
-        spheres.push(entity);
-        // Broadcast the updated spheres array to all clients
-        io.emit('state', spheres);
+        // Remove the sphere associated with the disconnected client
+        const index = spheres.findIndex(sphere => sphere.clientId === socket.id);
+        if (index !== -1)
+        {
+            const removedSphere = spheres.splice(index, 1)[0];
+            // Broadcast the removal to all clients
+            io.emit('removeEntity', removedSphere.clientId);
+        }
     });
 });
