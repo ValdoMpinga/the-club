@@ -12,20 +12,11 @@ const io = socketIo(server);
 
 let spheres = []; // Array to store sphere positions
 
-app.get('/', (req, res) =>
-{
-    res.sendFile(__dirname + '/../aframe-app/index.html');
-});
-
 server.listen(3000, () =>
 {
     console.log('Listening on port 3000');
 });
 
-// Inside the 'connection' event listener
-// ... (other parts of the server code remain unchanged)
-
-// ... (other parts of the server code remain unchanged)
 
 io.on('connection', (socket) =>
 {

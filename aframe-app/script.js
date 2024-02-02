@@ -42,7 +42,7 @@ socket.on('state', (spheres) =>
     {
         const { x, y, z } = sphere.position;
         const sphereElement = document.createElement('a-entity');
-        sphereElement.setAttribute('user-sphere', `name: ${sphere.name}; color: ${sphere.color}; position: ${x} 4 4; textColor: ${sphere.textColor || 'green'}; fontSize: ${sphere.fontSize || 8}`);
+        sphereElement.setAttribute('user-sphere', `name: ${sphere.name}; color: ${sphere.color}; position: ${x} 2 4; textColor: ${sphere.textColor || 'green'}; fontSize: ${sphere.fontSize || 8}`);
         // Add the sphere to your A-Frame scene
         document.querySelector('a-scene').appendChild(sphereElement);
     });
@@ -55,7 +55,7 @@ socket.on('addEntity', (userSphereData) =>
     console.log(userSphereData.clientId);
     const { x, y, z } = userSphereData.position;
     const sphereElement = document.createElement('a-entity');
-    sphereElement.setAttribute('user-sphere', `name: ${userSphereData.name}; color: ${userSphereData.color}; position: ${x} 4 4; textColor: ${userSphereData.textColor || 'green'}; fontSize: ${userSphereData.fontSize || 8}`);
+    sphereElement.setAttribute('user-sphere', `name: ${userSphereData.name}; color: ${userSphereData.color}; position: ${x} 2 4; textColor: ${userSphereData.textColor || 'green'}; fontSize: ${userSphereData.fontSize || 8}`);
     sphereElement.setAttribute('client-id', userSphereData.clientId);
     document.querySelector('a-scene').appendChild(sphereElement);
 
@@ -73,7 +73,7 @@ socket.on('removeEntity', (clientId) =>
     // showAlertMessage('User left!');
 
     // Select the <a-entity> element with the specified attributes
-    var entityToRemove = document.querySelector('a-entity[client-id]');
+    var entityToRemove = document.querySelector(`a-entity[client-id="${clientId}"]`);
 
     // Check if the element is found
     if (entityToRemove)
@@ -85,15 +85,6 @@ socket.on('removeEntity', (clientId) =>
         console.log("Element not found.");
     }
 
-    // Find the sphere associated with the client and remove it
-    // const sphereElements = document.querySelectorAll('a-entity[user-sphere]');
-    // sphereElements.forEach(sphereElement =>
-    // {
-    //     if (sphereElement.getAttribute('user-sphere').clientId === clientId)
-    //     {
-    //         sphereElement.parentNode.removeChild(sphereElement);
-    //     }
-    // });
 });
 
 

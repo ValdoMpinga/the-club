@@ -20,7 +20,7 @@ AFRAME.registerComponent('user-sphere', {
         // Create a text entity for the name
         const textEl = document.createElement('a-text');
         textEl.setAttribute('value', data.name);
-        textEl.setAttribute('position', '0 2 0'); // Position the text above the sphere
+        textEl.setAttribute('position', '0 3 0'); // Position the text above the sphere
         textEl.setAttribute('scale', `${data.fontSize} ${data.fontSize} ${data.fontSize}`); // Set the font size
         textEl.setAttribute('color', data.textColor); // Set the text color
         textEl.setAttribute('align', 'center'); // Center align the text
