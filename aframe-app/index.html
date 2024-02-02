@@ -14,12 +14,15 @@
     <!-- environment cdn -->
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
 
+    <!-- mins -->
+    <script src="./js/aframe-text-geometry-component.min.js"></script>
+
     <!-- components -->
     <script src="./components/userSphere.js"></script>
     <script src="./components/testComponent.js"></script>
     <script src="./components/djDeck.js"></script>
-    <script src="./components/tableComponent.js"></script>
     <script src="./components/button.js"></script>
+    <script src="./components/userCounter.js"></script>
   </head>
 
   <body>
@@ -48,6 +51,12 @@
 
       <a-entity position="0 3 5" wasd-controls="acceleration: 50">
         <a-camera></a-camera>
+      </a-entity>
+
+      <a-entity
+        id="userCounter"
+        user-counter='{"x": 15, "y": 15, "z": -13, "initialCount": 0}'
+      >
       </a-entity>
 
       <a-entity
