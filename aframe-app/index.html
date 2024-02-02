@@ -11,6 +11,9 @@
       referrerpolicy="no-referrer"
     ></script>
 
+    <!-- environment cdn -->
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+
     <!-- components -->
     <script src="./components/userSphere.js"></script>
     <script src="./components/testComponent.js"></script>
@@ -19,26 +22,37 @@
 
   <body>
     <a-scene>
-      <a-sky src="./assets/images/club.jpg"></a-sky>
+      <a-entity 
+      environment="preset: contact"
+      shadow="true"
+      shadowSize="25"
+      />
+
+      <!-- <a-sky src="./assets/images/club.jpg"></a-sky> -->
 
       <a-entity
         camera
         look-controls
-        wasd-controls="acceleration: 600"
-        position="0 3 5"
+        wasd-controls="acceleration: 500"
+        position="0 1.6 0"
       >
         <a-camera>
           <a-cursor></a-cursor>
         </a-camera>
       </a-entity>
 
+      <a-entity position="0 3 5" wasd-controls="acceleration: 50">
+        <a-camera></a-camera>
+      </a-entity>
+
+<!--       
       <a-entity
         id="alertMessage"
         position="0 2 -5"
         text="value: User joined!; color: white; width: 5; align: center; visible: false"
-      >
-        <!-- Animations -->
-        <a-animation
+      > -->
+      <!-- Animations -->
+      <!-- <a-animation
           attribute="opacity"
           begin="fadeIn"
           dur="1000"
@@ -50,23 +64,23 @@
           dur="1000"
           to="0"
         ></a-animation>
-      </a-entity>
+      </a-entity> -->
+<!-- 
+      <a-entity dj-deck="src: ./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3"></a-entity> -->
 
-      <!-- <a-entity dj-deck="src: ./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3"></a-entity> -->
-
-      <a-box dj-deck="src: ./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3" position="0 1 -3" width="1" height="1" depth="0.1" color="#4CC3D9"></a-box>
+      <a-box
+        dj-deck="src: ./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3"
+        position="0 1 -3"
+        width="1"
+        height="1"
+        depth="0.1"
+        color="#4CC3D9"
+      ></a-box>
 
       <a-entity
-        user-sphere="name: John; color: red; position: 12 4 -5; textColor: green; fontSize: 8"
+        user-sphere="name: John; color: red; position: 12 2 -5; textColor: green; fontSize: 8"
       ></a-entity>
 
-
-      <a-plane
-        width="100"
-        height="100"
-        color="#888888"
-        rotation="-90 0 0"
-      ></a-plane>
     </a-scene>
   </body>
   <script src="script.js"></script>

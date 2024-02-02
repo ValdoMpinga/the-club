@@ -1,32 +1,46 @@
 AFRAME.registerComponent('dj-deck', {
-    schema: {
-        src: { type: 'string' }
-    },
-
     init: function ()
     {
-        var el = this.el; // Reference to the entity to which this component is attached
+        const el = this.el;
 
-        // Set up the sound component
-        el.setAttribute('sound', {
-            src: this.data.src,
-            autoplay: false
-        });
+        // Create the deck model
+        const deckModel = document.createElement('a-entity');
+        deckModel.setAttribute('position', '0 1.2 -3');
 
-        // Play song and log message on click
-        el.addEventListener('click', function ()
+        const deckBase = document.createElement('a-box');
+        deckBase.setAttribute('color', 'black');
+        deckBase.setAttribute('width', '20');
+        deckBase.setAttribute('height', '0.8');
+        deckBase.setAttribute('depth', '3');
+        deckBase.setAttribute('position', '3 4 4');
+        deckModel.appendChild(deckBase);
+
+        const deckPlatter = document.createElement('a-cylinder');
+        deckPlatter.setAttribute('color', 'gray');
+        deckPlatter.setAttribute('radius', '1.2');
+        deckPlatter.setAttribute('height', '0.05');
+        deckPlatter.setAttribute('position', '0 0.1 0');
+        deckModel.appendChild(deckPlatter);
+
+        const playButton = document.createElement('a-box');
+        playButton.setAttribute('color', 'green');
+        playButton.setAttribute('width', '0.2');
+        playButton.setAttribute('height', '0.2');
+        playButton.setAttribute('depth', '0.2');
+        playButton.setAttribute('position', '-0.6 0.1 0.9');
+        playButton.addEventListener('click', () =>
         {
-            console.log("DJ Deck Clicked!");
-            var soundComponent = el.components.sound;
-            if (soundComponent.isPlaying)
+            const song = document.querySelector('#song');
+            if (song.paused)
             {
-                soundComponent.stopSound();
-                console.log("Song paused");
+                song.play();
             } else
             {
-                soundComponent.playSound();
-                console.log("Song started playing");
+                song.pause();
             }
         });
+        deckModel.appendChild(playButton);
+
+        el.appendChild(deckModel);
     }
 });
