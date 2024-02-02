@@ -16,11 +16,12 @@
 
     <!-- mins -->
     <script src="./js/aframe-text-geometry-component.min.js"></script>
+    <script src="js/aframe-spe-particles-component.js"></script>
+    <script src="js/aframe-spritesheet-animation.js"></script>
 
     <!-- components -->
     <script src="./components/userSphere.js"></script>
     <script src="./components/testComponent.js"></script>
-    <script src="./components/djDeck.js"></script>
     <script src="./components/button.js"></script>
     <script src="./components/userCounter.js"></script>
   </head>
@@ -60,10 +61,15 @@
       </a-entity>
 
       <a-entity
-        button-component="text: Play music; handler: playMusic; color: #00FF00; x: -2; y: 3; z: -3"
+        button-component="text: Play music; handler: playMusic; color: #00FF00; x: -3; y: 3; z: -3"
       ></a-entity>
+
+      <!-- <a-entity
+        button-component="text: Play fireworks; handler: playFireworks; color: cyan; x: -0.5; y: 3; z: -3"
+      ></a-entity> -->
+
       <a-entity
-        button-component="text: Stop music; handler: pauseMusic; color: red; x: 2; y: 3; z: -3"
+        button-component="text: Stop music; handler: pauseMusic; color: red; x:2; y: 3; z: -3"
       ></a-entity>
 
       <a-entity

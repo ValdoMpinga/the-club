@@ -121,3 +121,9 @@ function pauseMusic()
     var audioElement = document.getElementById('music');
     audioElement.pause();
 }
+
+//this should trigger the fireworks
+function playFireworks()
+{
+    console.log("kabooom!!!!");
+}
