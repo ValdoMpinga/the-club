@@ -1,27 +1,32 @@
-AFRAME.registerComponent('test-component', {
+AFRAME.registerComponent('dj-deck', {
+    schema: {
+        src: { type: 'string' }
+    },
+
     init: function ()
     {
-        console.log('testComponent initialized'); // Add this line
+        var audioEl = new Audio(this.data.src);
 
         var el = this.el; // Reference to the entity to which this component is attached
 
-        // Change color on click
+        // Play song and log message on click
         el.addEventListener('click', function ()
         {
-            console.log("Clicked!");
-            el.setAttribute('color', getRandomColor());
-        });
-
-        // Function to generate a random color
-        function getRandomColor()
-        {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++)
+            console.log("DJ Deck Clicked!");
+            if (audioEl.paused)
             {
-                color += letters[Math.floor(Math.random() * 16)];
+                audioEl.play().then(() =>
+                {
+                    console.log("Song started playing");
+                }).catch((error) =>
+                {
+                    console.error("Error starting song:", error);
+                });
+            } else
+            {
+                audioEl.pause();
+                console.log("Song paused");
             }
-            return color;
-        }
+        });
     }
 });

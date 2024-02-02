@@ -59,9 +59,9 @@ socket.on('addEntity', (userSphereData) =>
     sphereElement.setAttribute('client-id', userSphereData.clientId);
     document.querySelector('a-scene').appendChild(sphereElement);
 
-    showAlertMessage('User joined!');
-    alertEntity.setAttribute('visible', true); // Make the alert visible
-    alertEntity.emit('fadeIn'); // Trigger the fadeIn animation
+    // showAlertMessage('User joined!');
+    // alertEntity.setAttribute('visible', true); // Make the alert visible
+    // alertEntity.emit('fadeIn'); // Trigger the fadeIn animation
 });
 
 // Listen for the 'removeEntity' event to remove spheres
@@ -70,7 +70,7 @@ socket.on('removeEntity', (clientId) =>
     console.log("someone got removed!");
     console.log("id: " + clientId);
 
-    showAlertMessage('User left!');
+    // showAlertMessage('User left!');
 
     // Select the <a-entity> element with the specified attributes
     var entityToRemove = document.querySelector('a-entity[client-id]');
