@@ -32,6 +32,26 @@
       </a-entity>
 
       <a-entity
+        id="alertMessage"
+        position="0 2 -5"
+        text="value: User joined!; color: white; width: 5; align: center; visible: false"
+      >
+        <!-- Animations -->
+        <a-animation
+          attribute="opacity"
+          begin="fadeIn"
+          dur="1000"
+          to="1"
+        ></a-animation>
+        <a-animation
+          attribute="opacity"
+          begin="fadeOut"
+          dur="1000"
+          to="0"
+        ></a-animation>
+      </a-entity>
+
+      <a-entity
         user-sphere="name: John; color: red; position: 12 4 -5; textColor: green; fontSize: 8"
       ></a-entity>
 
