@@ -108,3 +108,16 @@ function showAlertMessage(message)
         alertEntity.emit('fadeOut'); // Trigger the fadeOut animation after a delay
     }, 3000); // Adjust delay as needed
 }
+
+
+function playMusic()
+{
+    var audioElement = document.getElementById('music');
+    audioElement.play();
+}
+
+function pauseMusic()
+{
+    var audioElement = document.getElementById('music');
+    audioElement.pause();
+}

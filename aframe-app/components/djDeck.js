@@ -1,46 +1,42 @@
-AFRAME.registerComponent('dj-deck', {
+AFRAME.registerComponent('dj-desk', {
+    schema: {
+        width: { type: 'number', default: 5 },
+        height: { type: 'number', default: 5 }
+    },
+
     init: function ()
     {
-        const el = this.el;
+        var data = this.data;
+        var el = this.el;
 
-        // Create the deck model
-        const deckModel = document.createElement('a-entity');
-        deckModel.setAttribute('position', '0 1.2 -3');
+        // Create the box for the DJ desk
+        var box = document.createElement('a-box');
+        box.setAttribute('width', data.width);
+        box.setAttribute('height', data.height);
+        box.setAttribute('depth', 0.1); // Set a small depth so it looks like a flat surface
+        box.setAttribute('position', '0 0 -0.05'); // Position slightly in front to avoid z-fighting
+        el.appendChild(box);
 
-        const deckBase = document.createElement('a-box');
-        deckBase.setAttribute('color', 'black');
-        deckBase.setAttribute('width', '20');
-        deckBase.setAttribute('height', '0.8');
-        deckBase.setAttribute('depth', '3');
-        deckBase.setAttribute('position', '3 4 4');
-        deckModel.appendChild(deckBase);
+        // Create the text for "DJ Deck"
+        var text = document.createElement('a-text');
+        text.setAttribute('value', 'DJ Deck');
+        text.setAttribute('align', 'center');
+        text.setAttribute('position', '0 ' + (data.height / 2) + ' -0.05'); // Position just in front of the box
+        text.setAttribute('rotation', '-90 0 0'); // Rotate to face upwards
+        el.appendChild(text);
 
-        const deckPlatter = document.createElement('a-cylinder');
-        deckPlatter.setAttribute('color', 'gray');
-        deckPlatter.setAttribute('radius', '1.2');
-        deckPlatter.setAttribute('height', '0.05');
-        deckPlatter.setAttribute('position', '0 0.1 0');
-        deckModel.appendChild(deckPlatter);
+        // Create the green play button
+        var playButton = document.createElement('a-entity');
+        playButton.setAttribute('geometry', 'primitive: plane; height: 1; width: 1');
+        playButton.setAttribute('material', 'color: green');
+        playButton.setAttribute('position', '-1.5 ' + (-data.height / 2) + ' -0.05'); // Position just in front of the box
+        el.appendChild(playButton);
 
-        const playButton = document.createElement('a-box');
-        playButton.setAttribute('color', 'green');
-        playButton.setAttribute('width', '0.2');
-        playButton.setAttribute('height', '0.2');
-        playButton.setAttribute('depth', '0.2');
-        playButton.setAttribute('position', '-0.6 0.1 0.9');
-        playButton.addEventListener('click', () =>
-        {
-            const song = document.querySelector('#song');
-            if (song.paused)
-            {
-                song.play();
-            } else
-            {
-                song.pause();
-            }
-        });
-        deckModel.appendChild(playButton);
-
-        el.appendChild(deckModel);
+        // Create the red pause button
+        var pauseButton = document.createElement('a-entity');
+        pauseButton.setAttribute('geometry', 'primitive: plane; height: 1; width: 1');
+        pauseButton.setAttribute('material', 'color: red');
+        pauseButton.setAttribute('position', '1.5 ' + (-data.height / 2) + ' -0.05'); // Position just in front of the box
+        el.appendChild(pauseButton);
     }
 });

@@ -18,17 +18,22 @@
     <script src="./components/userSphere.js"></script>
     <script src="./components/testComponent.js"></script>
     <script src="./components/djDeck.js"></script>
+    <script src="./components/tableComponent.js"></script>
+    <script src="./components/button.js"></script>
   </head>
 
   <body>
     <a-scene>
-      <a-entity 
-      environment="preset: contact"
-      shadow="true"
-      shadowSize="25"
-      />
+      <a-assets>
+        <audio
+          id="music"
+          src="./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3"
+          autoplay
+          loop
+        ></audio>
+      </a-assets>
 
-      <!-- <a-sky src="./assets/images/club.jpg"></a-sky> -->
+      <a-entity environment="preset: contact" shadow="true" shadowSize="25" />
 
       <a-entity
         camera
@@ -45,42 +50,16 @@
         <a-camera></a-camera>
       </a-entity>
 
-<!--       
       <a-entity
-        id="alertMessage"
-        position="0 2 -5"
-        text="value: User joined!; color: white; width: 5; align: center; visible: false"
-      > -->
-      <!-- Animations -->
-      <!-- <a-animation
-          attribute="opacity"
-          begin="fadeIn"
-          dur="1000"
-          to="1"
-        ></a-animation>
-        <a-animation
-          attribute="opacity"
-          begin="fadeOut"
-          dur="1000"
-          to="0"
-        ></a-animation>
-      </a-entity> -->
-<!-- 
-      <a-entity dj-deck="src: ./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3"></a-entity> -->
-
-      <a-box
-        dj-deck="src: ./assets/musics/ill.Gates - Flying Ft. Stephan Jacobs & Jackie Rain (Flapj4ck remix)[via tor.mp3"
-        position="0 1 -3"
-        width="1"
-        height="1"
-        depth="0.1"
-        color="#4CC3D9"
-      ></a-box>
+        button-component="text: Play music; handler: playMusic; color: #00FF00; x: -2; y: 3; z: -3"
+      ></a-entity>
+      <a-entity
+        button-component="text: Stop music; handler: pauseMusic; color: red; x: 2; y: 3; z: -3"
+      ></a-entity>
 
       <a-entity
         user-sphere="name: John; color: red; position: 12 2 -5; textColor: green; fontSize: 8"
       ></a-entity>
-
     </a-scene>
   </body>
   <script src="script.js"></script>
