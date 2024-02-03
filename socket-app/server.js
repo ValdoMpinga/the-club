@@ -49,4 +49,14 @@ io.on('connection', (socket) =>
             io.emit('removeEntity', removedSphere.clientId);
         }
     });
+
+    socket.on('playMusic', () =>
+    {
+        io.emit('playMusic');
+    });
+
+    socket.on('pauseMusic', () =>
+    {
+        io.emit('pauseMusic');
+    });
 });

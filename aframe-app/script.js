@@ -87,6 +87,17 @@ socket.on('removeEntity', (clientId) =>
 
 });
 
+socket.on('playMusic', () =>
+{
+    var audioElement = document.getElementById('music');
+    audioElement.play();
+});
+
+socket.on('pauseMusic', () =>
+{
+    var audioElement = document.getElementById('music');
+    audioElement.pause();
+});
 
 function showAlertMessage(message)
 {
@@ -103,12 +114,14 @@ function showAlertMessage(message)
 
 function playMusic()
 {
+    socket.emit('playMusic');
     var audioElement = document.getElementById('music');
     audioElement.play();
 }
 
 function pauseMusic()
 {
+    socket.emit('pauseMusic');
     var audioElement = document.getElementById('music');
     audioElement.pause();
 }
