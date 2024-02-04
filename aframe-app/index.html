@@ -14,7 +14,17 @@
     <!-- environment cdn -->
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
 
-    
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <!-- mins -->
     <script src="./js/aframe-text-geometry-component.min.js"></script>
     <script src="js/aframe-spe-particles-component.js"></script>
@@ -27,7 +37,21 @@
     <script src="./components/userCounter.js"></script>
   </head>
 
+  <style>
+    #alertContainer {
+      position: fixed; /* Position relative to the viewport */
+      top: 10px; /* Adjust as needed */
+      left: 10px; /* Adjust as needed */
+      right: 10px; /* Adjust as needed */
+      bottom: 10px; /* Adjust as needed */
+      pointer-events: none; /* Allow clicks to pass through to the A-Frame scene */
+    }
+  </style>
   <body>
+    <div
+      id="alertContainer"
+      style="position: absolute; z-index: 1000; width: 100%; height: auto"
+    ></div>
     <a-scene>
       <a-assets>
         <audio
@@ -55,11 +79,7 @@
         <a-camera></a-camera>
       </a-entity>
 
-      <a-entity
-        id="userCounter"
-        user-counter='{"x": 15, "y": 15, "z": -13, "initialCount": 0}'
-      >
-      </a-entity>
+      <a-entity id="userCounter" user-counter> </a-entity>
 
       <a-entity
         button-component="text: Play music; handler: playMusic; color: #00FF00; x: -3; y: 3; z: -3"

@@ -20,18 +20,10 @@ AFRAME.registerComponent('user-counter', {
 
     updateCounterText: function (userCount)
     {
+        console.log("updating user count to " + userCount);
+
         var el = this.el;
         var text = "Users in the party: " + userCount;
-
-        // Update the text geometry with the new user count
         el.setAttribute('text-geometry', 'value', text);
-    },
-
-    // Example method to increment the user count
-    incrementUserCount: function ()
-    {
-        var currentCount = this.el.getAttribute('text-geometry').value.split(' ')[3];
-        var newCount = parseInt(currentCount, 10) + 1;
-        this.updateCounterText(newCount);
     }
 });

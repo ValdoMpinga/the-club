@@ -11,6 +11,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 let spheres = []; // Array to store sphere positions
+let userCount = 0; // Variable to store the total number of connected clients
 
 server.listen(3000, () =>
 {
@@ -21,9 +22,11 @@ server.listen(3000, () =>
 io.on('connection', (socket) =>
 {
     console.log('New client connected');
+    userCount++; // Increment the user count
 
     // Send the current state to the newly connected client
     socket.emit('state', spheres);
+    socket.emit('userCount', userCount);
 
     // Handle the 'addEntity' event
     socket.on('addEntity', (userSphereData) =>
@@ -40,6 +43,8 @@ io.on('connection', (socket) =>
     socket.on('disconnect', () =>
     {
         console.log('Client disconnected');
+        userCount--; // Decrement the user count
+
         // Remove the sphere associated with the disconnected client
         const index = spheres.findIndex(sphere => sphere.clientId === socket.id);
         if (index !== -1)
@@ -48,6 +53,9 @@ io.on('connection', (socket) =>
             // Broadcast the removal to all clients
             io.emit('removeEntity', removedSphere.clientId);
         }
+
+        io.emit('userCount', userCount);
+
     });
 
     socket.on('playMusic', () =>

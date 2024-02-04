@@ -1,24 +1,26 @@
 const socket = io('http://localhost:3000');
+const firstNames = [
+    'James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph',
+    'Thomas', 'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Donald', 'Mark',
+    'Paul', 'Steven', 'Andrew', 'Kenneth', 'Joshua', 'George', 'Kevin', 'Brian', 'Edward',
+    'Ronald', 'Timothy', 'Jason', 'Jeffrey', 'Ryan', 'Jacob', 'Gary', 'Nicholas', 'Eric'
+];
+const clientIdToUsernameMap = {};
 
-// Function to generate a random letter from the alphabet
-function getRandomLetter()
+function getRandomFirstName()
 {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    const index = Math.floor(Math.random() * alphabet.length);
-    return alphabet[index].toUpperCase();
+    const index = Math.floor(Math.random() * firstNames.length);
+    return firstNames[index];
 }
 
-// Function to generate and add a new userSphere
+
 function generateAndAddUserSphere()
 {
     const x = Math.random() * 20 - 10;
     const y = Math.random() * 20 - 10;
     const z = Math.random() * 20 - 10;
 
-    // Generate two random letters for the name
-    const namePart1 = getRandomLetter();
-    const namePart2 = getRandomLetter();
-    const name = namePart1 + namePart2;
+    const name = getRandomFirstName();
 
     const userSphereData = {
         position: { x, y, z },
@@ -27,6 +29,8 @@ function generateAndAddUserSphere()
         textColor: 'purple',
         fontSize: 8
     };
+
+
 
     // Emit the event to the server with the userSphere data
     socket.emit('addEntity', userSphereData);
@@ -59,21 +63,23 @@ socket.on('addEntity', (userSphereData) =>
     sphereElement.setAttribute('client-id', userSphereData.clientId);
     document.querySelector('a-scene').appendChild(sphereElement);
 
-    // showAlertMessage('User joined!');
-    // alertEntity.setAttribute('visible', true); // Make the alert visible
-    // alertEntity.emit('fadeIn'); // Trigger the fadeIn animation
+    clientIdToUsernameMap[userSphereData.clientId] = userSphereData.name;
+
+
+    showAlert(userSphereData.name, true)
 });
 
-// Listen for the 'removeEntity' event to remove spheres
 socket.on('removeEntity', (clientId) =>
 {
     console.log("someone got removed!");
     console.log("id: " + clientId);
 
-    // showAlertMessage('User left!');
+    let username = getUsernameFromClientId(clientId);
+    showAlert(username, false); // Pass the username and false for leaving
 
     // Select the <a-entity> element with the specified attributes
     var entityToRemove = document.querySelector(`a-entity[client-id="${clientId}"]`);
+
 
     // Check if the element is found
     if (entityToRemove)
@@ -99,17 +105,24 @@ socket.on('pauseMusic', () =>
     audioElement.pause();
 });
 
-function showAlertMessage(message)
+socket.on('userCount', (count) =>
 {
-    var alertEntity = document.getElementById('alertMessage');
-    alertEntity.setAttribute('text', 'value', message);
-    alertEntity.setAttribute('visible', true); // Make the alert visible
-    alertEntity.emit('fadeIn'); // Trigger the fadeIn animation
-    setTimeout(() =>
+    try
     {
-        alertEntity.emit('fadeOut'); // Trigger the fadeOut animation after a delay
-    }, 3000); // Adjust delay as needed
-}
+        console.log("Current users in the party: " + count);
+        const userCounterEl = document.querySelector('#userCounter');
+        console.log("bellow");
+        console.log(userCounterEl);
+
+        console.log("passed number: " + count);
+        userCounterEl.components['user-counter'].updateCounterText(count);
+
+    } catch (e)
+    {
+        console.log(e);
+    }
+
+});
 
 
 function playMusic()
@@ -130,4 +143,35 @@ function pauseMusic()
 function playFireworks()
 {
     console.log("kabooom!!!!");
+}
+
+function showAlert(username, isJoining, alertContainerId = 'alertContainer')
+{
+    // Create a new div element
+    let div = document.createElement('div');
+
+    // Set the class attribute to 'alert' and add either 'alert-success' or 'alert-danger'
+    div.className = 'alert ' + (isJoining ? 'alert-success' : 'alert-danger');
+
+    // Set the role attribute to 'alert'
+    div.setAttribute('role', 'alert');
+
+    // Set the text inside the div
+    div.innerHTML = isJoining ? `${username} has joined!` : `${username} has left.`;
+
+    // Append the div to the alert container
+    let alertContainer = document.getElementById(alertContainerId);
+    alertContainer.appendChild(div);
+
+    // After 3 seconds, remove the alert
+    setTimeout(() =>
+    {
+        div.remove();
+    }, 3000);
+}
+
+
+function getUsernameFromClientId(clientId)
+{
+    return clientIdToUsernameMap[clientId] || 'Unknown User';
 }
