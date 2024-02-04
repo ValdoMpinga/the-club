@@ -25,8 +25,13 @@ io.on('connection', (socket) =>
 
     // Send the current state to the newly connected client
     console.log("passed value is " + userCount);
+    socket.emit('userCount', userCount, () =>
+    {
+        // Once the acknowledgement is received, update the user count
+        userCount++;
+    });
+    
     socket.emit('state', spheres);
-    socket.emit('userCount', userCount);
 
 
     // Handle the 'addEntity' event
@@ -55,7 +60,11 @@ io.on('connection', (socket) =>
             io.emit('removeEntity', removedSphere.clientId);
         }
 
-        io.emit('userCount', userCount);
+        socket.emit('userCount', userCount, () =>
+        {
+            // Once the acknowledgement is received, update the user count
+            userCount--;
+        });
 
     });
 

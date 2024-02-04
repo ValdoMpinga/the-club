@@ -47,7 +47,7 @@ socket.on('state', (spheres) =>
     {
         const { x, y, z } = sphere.position;
         const sphereElement = document.createElement('a-entity');
-        sphereElement.setAttribute('user-sphere', `name: ${sphere.name}; color: ${sphere.color}; position: ${x} 2 4; textColor: ${sphere.textColor || 'green'}; fontSize: ${sphere.fontSize || 8}`);
+        sphereElement.setAttribute('user-sphere', `name: ${sphere.name}; color: ${sphere.color}; position: ${x} 2 ${z}; textColor: ${sphere.textColor || 'green'}; fontSize: ${sphere.fontSize || 8}`);
         // Add the sphere to your A-Frame scene
         document.querySelector('a-scene').appendChild(sphereElement);
     });
@@ -60,7 +60,7 @@ socket.on('addEntity', (userSphereData) =>
     console.log(userSphereData.clientId);
     const { x, y, z } = userSphereData.position;
     const sphereElement = document.createElement('a-entity');
-    sphereElement.setAttribute('user-sphere', `name: ${userSphereData.name}; color: ${userSphereData.color}; position: ${x} 2 4; textColor: ${userSphereData.textColor || 'green'}; fontSize: ${userSphereData.fontSize || 8}`);
+    sphereElement.setAttribute('user-sphere', `name: ${userSphereData.name}; color: ${userSphereData.color}; position: ${x} 2 ${z}; textColor: ${userSphereData.textColor || 'green'}; fontSize: ${userSphereData.fontSize || 8}`);
     sphereElement.setAttribute('client-id', userSphereData.clientId);
     document.querySelector('a-scene').appendChild(sphereElement);
 
@@ -110,6 +110,7 @@ socket.on('userCount', (count) =>
 {
     try
     {
+        console.log("emitted with count: " + count);
         // Recursive function to wait for the user-counter component
         function waitForUserCounterComponent()
         {
