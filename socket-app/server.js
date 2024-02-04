@@ -21,12 +21,13 @@ server.listen(3000, () =>
 
 io.on('connection', (socket) =>
 {
-    console.log('New client connected');
     userCount++; // Increment the user count
 
     // Send the current state to the newly connected client
+    console.log("passed value is " + userCount);
     socket.emit('state', spheres);
     socket.emit('userCount', userCount);
+
 
     // Handle the 'addEntity' event
     socket.on('addEntity', (userSphereData) =>

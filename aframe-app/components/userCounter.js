@@ -1,29 +1,26 @@
 AFRAME.registerComponent('user-counter', {
     schema: {
-        initialCount: { type: 'number', default: 1 },
-        x: { type: 'number', default: -3 },
-        y: { type: 'number', default: 4.5 },
-        z: { type: 'number', default: -3 }
+        count: { type: 'number', default: 0 }
     },
 
     init: function ()
     {
-        var el = this.el;
         var data = this.data;
+        var el = this.el;
 
-        // Initialize the text with the initial user count
-        this.updateCounterText(data.initialCount);
+        // Create a text entity
+        this.textEntity = document.createElement('a-text');
+        this.textEntity.setAttribute('value', 'There are ' + data.count + ' players in this party');
+        this.textEntity.setAttribute('color', 'black');
+        this.textEntity.setAttribute('position', '-3 4.5 -3');
 
-        // Set the position of the text entity
-        el.object3D.position.set(data.x, data.y, data.z);
+        // Append the text entity to the current entity
+        el.appendChild(this.textEntity);
     },
 
-    updateCounterText: function (userCount)
+    updateText: function (newCount)
     {
-        console.log("updating user count to " + userCount);
-
-        var el = this.el;
-        var text = "Users in the party: " + userCount;
-        el.setAttribute('text-geometry', 'value', text);
+        console.log("setting count to " + newCount);
+        this.textEntity.setAttribute('value', 'There are ' + newCount + ' players in this party');
     }
 });

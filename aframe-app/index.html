@@ -39,12 +39,12 @@
 
   <style>
     #alertContainer {
-      position: fixed; /* Position relative to the viewport */
-      top: 10px; /* Adjust as needed */
-      left: 10px; /* Adjust as needed */
-      right: 10px; /* Adjust as needed */
-      bottom: 10px; /* Adjust as needed */
-      pointer-events: none; /* Allow clicks to pass through to the A-Frame scene */
+      position: fixed;
+      top: 10px;
+      left: 10px; 
+      right: 10px; 
+      bottom: 10px; 
+      pointer-events: none; 
     }
   </style>
   <body>
@@ -79,7 +79,7 @@
         <a-camera></a-camera>
       </a-entity>
 
-      <a-entity id="userCounter" user-counter> </a-entity>
+      <a-entity user-counter id="userCounter"></a-entity>
 
       <a-entity
         button-component="text: Play music; handler: playMusic; color: #00FF00; x: -3; y: 3; z: -3"
@@ -93,9 +93,6 @@
         button-component="text: Stop music; handler: pauseMusic; color: red; x:2; y: 3; z: -3"
       ></a-entity>
 
-      <!-- <a-entity
-        user-sphere="name: John; color: red; position: 12 2 -5; textColor: green; fontSize: 8"
-      ></a-entity> -->
     </a-scene>
   </body>
   <script src="script.js"></script>

@@ -5,6 +5,7 @@ const firstNames = [
     'Paul', 'Steven', 'Andrew', 'Kenneth', 'Joshua', 'George', 'Kevin', 'Brian', 'Edward',
     'Ronald', 'Timothy', 'Jason', 'Jeffrey', 'Ryan', 'Jacob', 'Gary', 'Nicholas', 'Eric'
 ];
+
 const clientIdToUsernameMap = {};
 
 function getRandomFirstName()
@@ -38,7 +39,7 @@ function generateAndAddUserSphere()
 
 generateAndAddUserSphere();
 
-// Listen for initial state (spheres array) from the server
+
 socket.on('state', (spheres) =>
 {
     // Render existing spheres based on positions in the spheres array
@@ -109,20 +110,33 @@ socket.on('userCount', (count) =>
 {
     try
     {
-        console.log("Current users in the party: " + count);
-        const userCounterEl = document.querySelector('#userCounter');
-        console.log("bellow");
-        console.log(userCounterEl);
+        // Recursive function to wait for the user-counter component
+        function waitForUserCounterComponent()
+        {
+            const userCounterEl = document.querySelector('#userCounter');
+            if (userCounterEl && userCounterEl.components && userCounterEl.components['user-counter'])
+            {
+                // Component is mounted and ready, update the text
+                console.log("Component is now mounted.");
+                console.log("Calling updateText with count:", count);
+                userCounterEl.components['user-counter'].updateText(count);
+            } else
+            {
+                // Component is not mounted yet, wait and try again
+                console.log("Waiting for user-counter component to mount...");
+                setTimeout(waitForUserCounterComponent, 100); // Retry every 100 milliseconds
+            }
+        }
 
-        console.log("passed number: " + count);
-        userCounterEl.components['user-counter'].updateCounterText(count);
-
+        // Start the waiting process
+        waitForUserCounterComponent();
     } catch (e)
     {
-        console.log(e);
+        console.log("Error in userCount event handler:", e);
     }
-
 });
+
+
 
 
 function playMusic()
